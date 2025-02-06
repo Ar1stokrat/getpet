@@ -1,0 +1,61 @@
+@model IEnumerable<PetAdoptionPlatform.Models.Animal>
+
+@{
+    ViewData["Title"] = "Список тварин";
+}
+
+<h1>Список тварин</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ім'я</th>
+            <th>Вид</th>
+            <th>Порода</th>
+            <th>Вік</th>
+            <th>Опис</th>
+            <th>Статус</th>
+            <th>Фото</th>
+            <th>Додав користувач</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Дії</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.Name</td>
+                <td>@animal.Species</td>
+                <td>@animal.Breed</td>
+                <td>@animal.Age</td>
+                <td>@animal.Description</td>
+                <td>@animal.Status</td>
+                <td>
+                    <img src="@Url.Content(animal.ImageUrl)" alt="Фото @animal.Name" width="150" height="150"
+                         onerror="this.onerror=null;this.src='/images/no-image.png';">
+                </td>
+                <td>@(animal.AddedByUser?.Email ?? "Невідомо")</td>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@animal.Id" class="btn btn-warning">Редагувати</a>
+                        <form asp-action="Delete" asp-route-id="@animal.Id" method="post" style="display:inline;">
+                            <button type="submit" class="btn btn-danger" onclick="return confirm('Ви впевнені?');">Видалити</button>
+                        </form>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Додати тварину</a>
+    </p>
+}

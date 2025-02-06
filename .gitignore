@@ -1,0 +1,12 @@
+# .NET
+bin/
+obj/
+.vs/
+.vscode/
+# ASP.NET temporary files
+web.config.user
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates

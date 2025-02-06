@@ -1,0 +1,86 @@
+
+@model IEnumerable<PetAdoptionPlatform.Models.News>
+
+@{
+    ViewData["Title"] = "Новини";
+}
+
+<h1>Новини</h1>
+
+@if (User.Identity.IsAuthenticated)
+{
+    var user = Context.RequestServices.GetService<ApplicationDbContext>()
+        .Users.Include(u => u.Role)
+        .FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+    if (user != null && user.RoleId == 2) 
+    {
+        <p>
+            <a asp-action="Create" class="btn btn-primary">Створити новину</a>
+        </p>
+    }
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CreatedByUser)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedByUser.Email)
+            </td>
+
+            <td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Більше</a>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            var user = Context.RequestServices.GetService<ApplicationDbContext>()
+                            .Users.Include(u => u.Role)
+                            .FirstOrDefault(u => u.UserName == User.Identity.Name);
+
+                            if (user != null && user.RoleId == 2) // Только админам можно редактировать и удалять
+                            {
+                            <span> | </span>
+                                @if (ViewBag.IsAdmin)
+                                {
+                                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a>
+                                }
+
+                            <span> | </span>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                            }
+                        }
+                </td>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
