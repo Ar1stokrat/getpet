@@ -1,4 +1,19 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener("DOMContentLoaded", function () {
+    let hero = document.getElementById("hero-container");
 
-// Write your JavaScript code.
+    if (hero) {
+        window.addEventListener("scroll", function () {
+            let scrollY = window.scrollY;
+            let opacity = Math.max(1 - scrollY / 300, 0);
+
+            hero.style.opacity = opacity;
+            hero.style.transform = translateY(${ scrollY / 4}px);
+
+        if (opacity === 0) {
+            hero.style.display = "none";
+        } else {
+            hero.style.display = "flex";
+        }
+    });
+    }
+});

@@ -1,83 +1,96 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] GetPet</title>
-    <script type="importmap"></script>
+    <title>@ViewData["Title"] - GetPet</title>
+
+    <!-- Bootstrap и стили -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PetAdoptionPlatform.styles.css" asp-append-version="true" />
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <!-- AOS Animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">GetPet</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fa-solid fa-paw"></i> GetPet
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Головна</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Конфиденційність</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="News" asp-action="Index">Новини</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="AdoptionRequests" asp-action="Index">Заяви на адопцію</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Animals" asp-action="Index">Тварини</a>
-                        </li>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Головна</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Privacy">Конфіденційність</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="News" asp-action="Index">Новини</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Animals" asp-action="Index">Тварини</a></li>
                     </ul>
 
                     <ul class="navbar-nav">
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                <span class="navbar-text">Привiт, @User.Identity.Name!</span>
-                            </li>
+                            <li class="nav-item"><span class="nav-link">Привіт, @User.Identity.Name!</span></li>
                             <li class="nav-item">
                                 <form method="post" asp-area="Identity" asp-page="/Account/Logout">
-                                    <button type="submit" class="btn btn-link nav-link">Выйти</button>
+                                    <button type="submit" class="btn btn-outline-danger btn-sm">Вийти</button>
                                 </form>
                             </li>
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Вхід</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Реєстрація</a>
-                            </li>
+                            <li class="nav-item"><a class="btn btn-outline-primary btn-sm" asp-area="Identity" asp-page="/Account/Login">Вхід</a></li>
+                            <li class="nav-item"><a class="btn btn-primary btn-sm ms-2" asp-area="Identity" asp-page="/Account/Register">Реєстрація</a></li>
                         }
                     </ul>
-
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+
+    @if (ViewData["Title"] == "Головна сторінка")
+    {
+        <div id="hero-container" class="hero-container">
+            <div class="hero-text">
+                <h1>Ласкаво просимо до GetPet! 🐶🐱</h1>
+                <p>Ми – платформа, що допомагає знайти вірного друга серед тварин із притулків.</p>
+                <p>Даруй любов – знайди улюбленця, який чекає на тебе!</p>
+                <a href="/Animals" class="btn btn-primary btn-lg">Знайти улюбленця</a>
+            </div>
+            <div class="hero-image">
+                <img src="~/images/hero-pet.png" alt="Милий улюбленець">
+            </div>
+        </div>
+    }
+
+    <div class="container mt-4 flex-grow-1" data-aos="fade-up">
+        <main role="main">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2025 - GetPet by Balan Dmytro - <a asp-area="" asp-controller="Home" asp-action="Privacy">Політика Конфеденційності</a>
+    <footer class="footer mt-auto py-3 bg-dark text-white">
+        <div class="container text-center">
+            &copy; 2025 - GetPet by Balan Dmytro
+            <br>
+            <a class="text-white" asp-controller="Home" asp-action="Privacy">Політика конфіденційності</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true });
+    </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ public class User : IdentityUser<int>
 {
     public DateTime DateRegistered { get; set; } = DateTime.Now;
 
-    public int RoleId { get; set; }  // Явное указание FK
+    public int RoleId { get; set; }  
 
     public Role Role { get; set; }
 

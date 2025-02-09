@@ -2,13 +2,12 @@
 
 namespace PetAdoptionPlatform.Models
 {
-    public class Role : IdentityRole<int> // Указываем, что ключ типа int
+    public class Role : IdentityRole<int> 
     {
         public Role() : base() { }
 
         public Role(string roleName) : base(roleName) { }
 
-        // Дополнительные поля, если нужны
-        // public string Description { get; set; }
+        
     }
 }

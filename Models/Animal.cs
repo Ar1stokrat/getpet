@@ -15,6 +15,6 @@ namespace PetAdoptionPlatform.Models
         public string ImageUrl { get; set; }
         public int? AddedByUserId { get; set; }
 
-        public virtual User? AddedByUser { get; set; } // Важно для корректной загрузки пользователя
+        public virtual User? AddedByUser { get; set; } 
     }
 }
