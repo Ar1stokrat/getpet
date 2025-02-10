@@ -134,4 +134,27 @@ header {
     gap: 20px;
     font-size: 18px;
 }
+.news-container {
+    padding: 40px 20px;
+}
+
+.news-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 20px;
+}
+
+    .news-card:hover {
+        transform: scale(1.03);
+    }
+
+    .news-card .card-title {
+        font-weight: bold;
+    }
+
+    .news-card .btn {
+        margin-right: 5px;
+    }
 

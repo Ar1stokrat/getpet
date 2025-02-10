@@ -1,63 +1,38 @@
-
-@model IEnumerable<PetAdoptionPlatform.Models.News>
+п»ї@model IEnumerable<PetAdoptionPlatform.Models.News>
 
 @{
-    ViewData["Title"] = "Новини";
+    ViewData["Title"] = "РќРѕРІРёРЅРё";
 }
 
-<h1>Новини</h1>
+<div class="hero-container">
+    <div>
+        <h1>РћСЃС‚Р°РЅРЅС– РЅРѕРІРёРЅРё GetPet рџђѕ</h1>
+        <p>Р”С–Р·РЅР°РІР°Р№С‚РµСЃСЊ РїСЂРѕ РІР°Р¶Р»РёРІС– РїРѕРґС–С—, Р°РєС†С–С— С‚Р° С–СЃС‚РѕСЂС–С— СѓСЃРїС–С…Сѓ.</p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            var user = Context.RequestServices.GetService<ApplicationDbContext>()
+            .Users.Include(u => u.Role)
+            .FirstOrDefault(u => u.UserName == User.Identity.Name);
 
-@if (User.Identity.IsAuthenticated)
-{
-    var user = Context.RequestServices.GetService<ApplicationDbContext>()
-        .Users.Include(u => u.Role)
-        .FirstOrDefault(u => u.UserName == User.Identity.Name);
+            if (user != null && user.RoleId == 2)
+            {
+                <a asp-action="Create" class="btn btn-primary btn-lg">Р”РѕРґР°С‚Рё РЅРѕРІРёРЅСѓ</a>
+            }
+        }
+    </div>
+</div>
 
-    if (user != null && user.RoleId == 2) 
-    {
-        <p>
-            <a asp-action="Create" class="btn btn-primary">Створити новину</a>
-        </p>
-    }
-}
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedByUser)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedAt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedByUser.Email)
-            </td>
-
-            <td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Більше</a>
+<div class="container news-container">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card news-card">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Content</p>
+                        <p class="text-muted small">РћРїСѓР±Р»С–РєРѕРІР°РЅРѕ: @item.CreatedAt.ToShortDateString() | РђРІС‚РѕСЂ: @item.CreatedByUser.Email</p>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-primary">Р”РµС‚Р°Р»СЊРЅС–С€Рµ</a>
 
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -65,22 +40,17 @@
                             .Users.Include(u => u.Role)
                             .FirstOrDefault(u => u.UserName == User.Identity.Name);
 
-                            if (user != null && user.RoleId == 2) // Только админам можно редактировать и удалять
+                            if (user != null && user.RoleId == 2)
                             {
-                            <span> | </span>
-                                @if (ViewBag.IsAdmin)
-                                {
-                                <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a>
-                                }
-
-                            <span> | </span>
-                            <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                                <div class="mt-2">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Р РµРґР°РіСѓРІР°С‚Рё</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Р’РёРґР°Р»РёС‚Рё</a>
+                                </div>
                             }
                         }
-                </td>
-
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
