@@ -5,19 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - GetPet</title>
 
-    <!-- Bootstrap и стили -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
     <link rel="stylesheet" href="~/css/custom.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/PetAdoptionPlatform.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
-    <!-- AOS Animations -->
     <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <header>
         <nav class="navbar navbar-expand-lg navbar-light shadow-sm">
             <div class="container">
@@ -69,22 +67,50 @@
                 <img src="~/images/hero-pet.png" alt="Милий улюбленець">
             </div>
         </div>
+
+        <div class="info-section" data-aos="fade-up">
+            <div class="info-content">
+                <div class="info-image">
+                    <img src="~/images/about-us.png" alt="Щасливі власники з улюбленцем">
+                </div>
+                <div class="info-text">
+                    <h2>Про GetPet</h2>
+                    <p>
+                        <strong>GetPet</strong> — це не просто онлайн-платформа, а справжній міст між безпритульними тваринами та люблячими господарями.
+                        Ми об'єднуємо людей, які хочуть подарувати тепло та турботу тим, хто цього найбільше потребує.
+                    </p>
+                    <p>
+                        Ми співпрацюємо з десятками притулків по всій країні, що дозволяє легко знаходити чотирилапих друзів у вашому регіоні.
+                        Завдяки нашій зручній системі пошуку, ви можете переглядати анкети тварин, дізнаватися їхню історію та подавати заявку на адопцію в декілька кліків.
+                    </p>
+                    <p>
+                        Наша мета – не тільки знайти кожному улюбленцю дім, але й підвищити рівень відповідального ставлення до тварин.
+                        Саме тому ми також надаємо корисні матеріали про догляд, виховання та адаптацію нових членів родини.
+                    </p>
+                    <p>
+                        Долучайтеся до нашої спільноти, слідкуйте за історіями успіху та допомагайте змінювати світ на краще – одна врятована тварина за раз! 🐾
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
     }
 
-    <div class="container mt-4 flex-grow-1" data-aos="fade-up">
+    <div class="container ">
         <main role="main">
             @RenderBody()
         </main>
+
     </div>
 
-    <footer class="footer mt-auto py-3 bg-dark text-white">
+    <footer class="footer mt-auto py-2 bg-dark text-white">
         <div class="container text-center">
             &copy; 2025 - GetPet by Balan Dmytro
             <br>
             <a class="text-white" asp-controller="Home" asp-action="Privacy">Політика конфіденційності</a>
         </div>
     </footer>
-
+    
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
@@ -92,5 +118,7 @@
     <script>
         AOS.init({ duration: 1000, once: true });
     </script>
+    @RenderSection("Scripts", required: false)
+
 </body>
 </html>

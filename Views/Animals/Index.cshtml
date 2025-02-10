@@ -31,8 +31,7 @@
                 <td>@animal.Description</td>
                 <td>@(animal.AddedByUser?.Email ?? "Невідомо")</td>
                 <td>
-                    <!-- Кнопка "Подати заявку" -->
-                    <button class="btn btn-success" data-toggle="modal" data-target="#adoptModal" data-animal-id="@animal.Id">
+                    <button class="btn btn-success apply-button" data-toggle="modal" data-target="#adoptModal" data-animal-id="@animal.Id">
                         Подати заявку
                     </button>
 
