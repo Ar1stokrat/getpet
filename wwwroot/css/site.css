@@ -157,4 +157,27 @@ header {
     .news-card .btn {
         margin-right: 5px;
     }
+.privacy-container {
+    padding: 40px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.privacy-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+    .privacy-card h2 {
+        color: #333;
+        margin-top: 20px;
+        font-size: 22px;
+    }
+
+    .privacy-card p {
+        font-size: 16px;
+        color: #555;
+    }
 
